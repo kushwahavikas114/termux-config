@@ -1,0 +1,7 @@
+#!/bin/sh
+
+PACKAGE="$(sudo pm list packages | fzf | cut -d: -f2)"
+
+sudo dumpsys package |
+	grep -Eo $(printf "^[[:space:]]+[0-9a-f]+[[:space:]]+%s/[^[:space:]]+" "${PACKAGE}") |
+	grep -oE "[^[:space:]]+$" | fzf

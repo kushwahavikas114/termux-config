@@ -1,0 +1,9 @@
+#!/bin/sh
+
+termux-wake-lock
+su -c setprop service.adb.tcp.port 43896
+su -c start adbd
+
+for prog in sshd syncthing; do
+	pidof -q "$prog" || "$prog" &
+done >/dev/null 2>&1

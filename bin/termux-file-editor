@@ -1,0 +1,8 @@
+#!/bin/sh
+
+. ~/.profile
+
+fsend "$@"
+
+printf "Press Enter to continue..."
+read -r ans

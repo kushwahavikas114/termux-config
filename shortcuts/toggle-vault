@@ -1,0 +1,6 @@
+#!/bin/sh
+
+state="Not Implemented"
+echo "$state"
+termux-toast "Toggle Vault is $state"
+sleep 1
