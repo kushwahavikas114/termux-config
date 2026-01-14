@@ -1,0 +1,12 @@
+#!/bin/sh
+
+export NVIM_APPNAME=vim
+if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/vim/vimrc" ]; then
+	nvim -u "${XDG_CONFIG_HOME:-$HOME/.config}/vim/vimrc" "$@"
+elif [ -f "$HOME/.vim/vimrc" ]; then
+	nvim -u "$HOME/.vim/vimrc" "$@"
+elif [ -f "$HOME/.vimrc" ]; then
+	nvim -u "$HOME/.vimrc" "$@"
+else
+	nvim "$@"
+fi

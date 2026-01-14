@@ -1,0 +1,14 @@
+#!/bin/sh
+
+err() { printf "${0##*/}: %s\n" "$@" >&2; exit 1; }
+
+items="$(cat | sed -z "s/,/\\\\,/g; s/\n/,/g")"
+
+case "$1" in
+	'') menu="sheet" ;;
+	checkbox|radio|sheet|spinner) menu="$1" ;;
+	*) err "unsupported menu type: $1"
+esac
+
+termux-dialog "$menu" -v "$items" -t "$2" | \
+	sed -n 's/^\s*"text": "\(.*\)",$/\1/p'
