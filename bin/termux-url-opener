@@ -1,1 +1,5 @@
-termux-file-editor
+#!/bin/sh
+
+termux-toast "Opening URLs..."
+
+~/bin/termux-file-editor "$@"
