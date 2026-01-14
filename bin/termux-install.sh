@@ -33,7 +33,7 @@ cleardir() {
 
 echo "\n:: We need to create a link to your sdcard"
 cleardir ~/storage && {
-	msg ":: Path to your sdcard: "
+	msg ":: Path to your Micro SD Card: "
 	read -r sdcard
 
 	[ -d "$sdcard" ] || err "$sdcard: No such directory"
@@ -61,13 +61,18 @@ makelink() {
 	ln -sfv "$1" "$2"
 }
 
-makelink /sdcard ~/sdcard
-makelink /sdcard/Documents ~/Documents
-makelink /sdcard/Download/ ~/Downloads
-makelink /sdcard/Pictures/ ~/Pictures
+# Termux shortcuts
+makelink ~/.termux/bin ~/bin
+makelink ~/.termux/shortcuts ~/.shortcuts
+
+# Device shortcuts
+makelink /sdcard ~/Phone
+makelink ~/Phone/Documents ~/Documents
+makelink ~/Phone/Download/ ~/Downloads
+makelink ~/Phone/Pictures/ ~/Pictures
 makelink ~/storage/Music ~/Music
 makelink ~/storage/Movies ~/Movies
-makelink ~/storage/GDrive ~/GDrive
+makelink ~/storage/Drive ~/Drive
 
 PKGS="openssh zsh tmux fzf python rsync"
 # termux-change-repo
@@ -77,14 +82,3 @@ for pkg in $PKGS; do
 	msg "\n:: Installing %s...\n" "$pkg"
 	pkg install -y "$pkg"
 done
-
-cleardir ~/.termux && {
-	git clone git@github.com:csstudent41/termux-config
-	mv -v termux-config .termux
-	termux-reload-settings
-}
-
-cleardir ~/voidrice && {
-	git clone git@github.com:csstudent41/voidrice
-	rsync -Pru ~/voidrice/ ~/
-}
