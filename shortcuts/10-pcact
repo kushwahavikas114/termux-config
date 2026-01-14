@@ -1,0 +1,47 @@
+#!/bin/sh
+
+[ -z "$REMOTE_PC" ] && REMOTE_PC=shadow
+
+action="$(termux-dialog sheet -t pcact -v \
+	"Start Server,Stop Server,System Actions,MPV Remote,Stop MPV" | \
+	sed -n 's|^\s*"index": \([0-9]*\)\s*$|\1|p')"
+
+addhost() { [ -x "$(command -v sshadd)" ] && sshadd "$1"; }
+
+case "$action" in
+
+	0)
+		termux-wake-lock
+		su -c setprop service.adb.tcp.port 43896
+		su -c start adbd
+
+		for prog in sshd syncthing; do
+			pidof -q "$prog" || "$prog" &
+		done >/dev/null 2>&1
+		;;
+
+	1)
+		pkill syncthing
+		pkill sshd
+
+		su -c stop adbd
+		termux-wake-unlock
+		;;
+
+	2)
+		addhost "$REMOTE_PC"
+		SYSACT_REMOTE_PC="$REMOTE_PC" ~/.local/bin/sysact "$@"
+		;;
+
+	3)
+		addhost "$REMOTE_PC"
+		ssh "$REMOTE_PC" "sh -c 'nohup mpv --idle >/dev/null 2>&1 &'"
+		am start com.husudosu.mpvremote/com.husudosu.mpvremote.MainActivity
+		;;
+
+	4)
+		addhost "$REMOTE_PC"
+		ssh "$REMOTE_PC" pkill mpv
+		;;
+
+esac

@@ -3,4 +3,6 @@
 state="Not Implemented"
 echo "$state"
 termux-toast "Toggle Vault is $state"
-sleep 1
+
+printf "Press Enter to continue: "
+read -r _

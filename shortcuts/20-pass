@@ -1,0 +1,7 @@
+#!/bin/sh
+
+. ~/.profile
+
+PASS_ENTRY_MENU="termux-menu spinner" \
+	PASS_FIELD_MENU="termux-menu sheet" \
+	fpass copy

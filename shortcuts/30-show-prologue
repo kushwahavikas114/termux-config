@@ -1,0 +1,15 @@
+#!/bin/sh
+
+cd "$HOME/Media/other/The_Prologue_of_Ohrid/" || exit
+
+day="$(date +%e)"
+month="$(date +%B)"
+file="$(find -name "*_${month}_${day## }.*.mkv")"
+
+if [ -n "$file" ]; then
+	termux-toast "Day $(date +%j)"
+	termux-toast "${month} ${day}"
+	xdg-open "$file"
+else
+	termux-toast "Today's Prologue was not found."
+fi

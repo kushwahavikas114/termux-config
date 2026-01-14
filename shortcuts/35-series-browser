@@ -1,0 +1,6 @@
+#!/bin/sh
+
+. ~/.profile
+
+SB_MENU="termux-menu sheet" \
+	series-browser Media
