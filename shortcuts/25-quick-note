@@ -1,0 +1,5 @@
+#!/bin/sh
+
+. ~/.profile
+
+"${EDITOR:-vi}" ~/Documents/Notes/QuickNote.md

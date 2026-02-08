@@ -1,9 +1,10 @@
 #!/bin/sh
 
-[ -z "$REMOTE_PC" ] && REMOTE_PC=shadow
+[ -z "$REMOTE_HOST" ] && REMOTE_HOST=shadow
 
 action="$(termux-dialog sheet -t pcact -v \
-	"Start Server,Stop Server,System Actions,MPV Remote,Stop MPV" | \
+	"Start Local Server,Stop Local Server,System Actions,
+		MPV Remote Server,Kill MPV Remote Server" | \
 	sed -n 's|^\s*"index": \([0-9]*\)\s*$|\1|p')"
 
 addhost() { [ -x "$(command -v sshadd)" ] && sshadd "$1"; }
@@ -29,19 +30,19 @@ case "$action" in
 		;;
 
 	2)
-		addhost "$REMOTE_PC"
-		SYSACT_REMOTE_PC="$REMOTE_PC" ~/.local/bin/sysact "$@"
+		addhost "$REMOTE_HOST"
+		SYSACT_REMOTE_PC="$REMOTE_HOST" ~/.local/bin/sysact "$@"
 		;;
 
 	3)
-		addhost "$REMOTE_PC"
-		ssh "$REMOTE_PC" "sh -c 'nohup mpv --idle >/dev/null 2>&1 &'"
+		addhost "$REMOTE_HOST"
+		ssh "$REMOTE_HOST" "sh -c 'nohup mpv --idle >/dev/null 2>&1 &'"
 		am start com.husudosu.mpvremote/com.husudosu.mpvremote.MainActivity
 		;;
 
 	4)
-		addhost "$REMOTE_PC"
-		ssh "$REMOTE_PC" pkill mpv
+		addhost "$REMOTE_HOST"
+		ssh "$REMOTE_HOST" pkill mpv
 		;;
 
 esac

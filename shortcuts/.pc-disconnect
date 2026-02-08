@@ -1,7 +1,0 @@
-#!/bin/sh
-
-pkill syncthing
-pkill sshd
-
-su -c stop adbd
-termux-wake-unlock

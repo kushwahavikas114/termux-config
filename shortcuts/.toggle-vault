@@ -1,8 +1,0 @@
-#!/bin/sh
-
-state="Not Implemented"
-echo "$state"
-termux-toast "Toggle Vault is $state"
-
-printf "Press Enter to continue: "
-read -r _

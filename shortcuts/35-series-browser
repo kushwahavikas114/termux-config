@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. ~/.profile
+. ~/.zprofile
 
 SB_MENU="termux-menu sheet" \
-	series-browser Media
+	series-browser Media Movies
