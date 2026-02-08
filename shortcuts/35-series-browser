@@ -2,5 +2,18 @@
 
 . ~/.zprofile
 
+if [ -d Desktop/Media ]; then
+	target="Desktop/Media"
+elif [ -d Media ]; then
+	target="Media"
+elif [ -d Videos ]; then
+	target="Videos"
+else
+	echo "No standard media directory found." >&2
+	printf "Press Enter to continue: "
+	read -r ans
+	exit
+fi
+
 SB_MENU="termux-menu sheet" \
-	series-browser Media Movies
+	series-browser "$target"
