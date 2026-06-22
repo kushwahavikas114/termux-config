@@ -1,30 +1,31 @@
 #!/bin/sh
 
+. ~/.profile
+
 [ -z "$REMOTE_HOST" ] && REMOTE_HOST=shadow
 
-action="$(termux-dialog sheet -t pcact -v \
+action="${1:-"$(termux-dialog sheet -t pcact -v \
 	"Start Local Server,Stop Local Server,System Actions,
 		MPV Remote Server,Kill MPV Remote Server" | \
-	sed -n 's|^\s*"index": \([0-9]*\)\s*$|\1|p')"
+	sed -n 's|^\s*"index": \([0-9]*\)\s*$|\1|p')"}"
 
 addhost() { [ -x "$(command -v sshadd)" ] && sshadd "$1"; }
 
 case "$action" in
 
 	0)
-		termux-wake-lock
-		su -c setprop service.adb.tcp.port 43896
-		su -c start adbd
-
+		termux-wake-lock &
+		dg pull &
 		for prog in sshd syncthing; do
 			pidof -q "$prog" || "$prog" &
 		done >/dev/null 2>&1
+		# su -c setprop service.adb.tcp.port 43896
+		# su -c start adbd
 		;;
 
 	1)
 		pkill syncthing
 		pkill sshd
-
 		su -c stop adbd
 		termux-wake-unlock
 		;;

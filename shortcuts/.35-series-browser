@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. ~/.zprofile
+. ~/.profile
 
 if [ -d Desktop/Media ]; then
 	target="Desktop/Media"

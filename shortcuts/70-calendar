@@ -1,5 +1,5 @@
 #!/bin/sh
 
-. ~/.zprofile
+. ~/.profile
 
 calendar "$@"
