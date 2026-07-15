@@ -15,7 +15,7 @@ case "$action" in
 
 	0)
 		termux-wake-lock &
-		dg pull &
+		pidof -q git || dg pull &
 		for prog in sshd syncthing; do
 			pidof -q "$prog" || "$prog" &
 		done >/dev/null 2>&1
