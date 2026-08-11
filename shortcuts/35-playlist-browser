@@ -15,5 +15,8 @@ else
 	exit
 fi
 
-SB_MENU="termux-menu sheet" \
-	series-browser "$target"
+# SB_MENU="termux-menu sheet" \
+# 	series-browser "$target"
+
+cd "$target" || exit
+fpl
