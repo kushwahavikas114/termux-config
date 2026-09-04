@@ -1,10 +1,11 @@
 #!/bin/sh
 
-cd "$HOME/Media/others/The_Prologue_of_Ohrid/" || exit
+cd "$HOME/Media/Orthodox_Hagiography/" || exit
 
+alias date="date --date='-13 days'"
 day="$(date +%e)"
 month="$(date +%B)"
-file="$(find -name "* ${month} ${day## }.*.mkv")"
+file="$(find . -name "* ${month} ${day## }.*.mkv")"
 
 if [ -n "$file" ]; then
 	termux-toast "Day $(date +%j)"
