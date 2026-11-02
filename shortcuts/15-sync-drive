@@ -3,3 +3,6 @@
 . ~/.profile
 
 syncdrive
+
+printf "Press Enter to continue..."
+read -r ans
